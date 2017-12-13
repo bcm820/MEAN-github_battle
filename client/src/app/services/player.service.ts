@@ -19,8 +19,8 @@ export class PlayerService {
   }
 
   search(username){
-    return this._http.get(`https://api.github.com/users/${username}`,
-    {headers: {"Authorization": "token 8a42946ac5e4e5dd4da27e7fdafb189392199b8d"}})
+    return this._http.get(`https://api.github.com/users/${username}`);
+    // GitHub API token removed
   }
 
   list(){

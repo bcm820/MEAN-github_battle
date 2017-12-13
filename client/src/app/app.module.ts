@@ -10,7 +10,6 @@ import { BattleComponent } from './components/battle/battle.component';
 import { PlayerComponent } from './components/battle/player/player.component';
 import { ResultsComponent } from './components/battle/results/results.component';
 import { RankingsComponent } from './components/rankings/rankings.component';
-import { ListComponent } from './components/rankings/list/list.component';
 
 import { PlayerService } from './services/player.service';
 
@@ -20,7 +19,6 @@ import { PlayerService } from './services/player.service';
     PlayerComponent,
     ResultsComponent,
     RankingsComponent,
-    ListComponent,
     BattleComponent
   ],
   imports: [

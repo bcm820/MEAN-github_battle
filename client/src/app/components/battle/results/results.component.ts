@@ -23,7 +23,11 @@ export class ResultsComponent implements OnInit {
   getPlayers(){
     let players = this._ps.players.getValue();
     [this.player1, this.player2] = players;
+  }
 
+  reset(){
+    this._ps.players.next([]);
+    this.router.navigate([''])
   }
 
 }

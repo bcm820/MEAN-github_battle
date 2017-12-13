@@ -131,15 +131,13 @@ var AppComponent = (function () {
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__components_battle_player_player_component__ = __webpack_require__("../../../../../src/app/components/battle/player/player.component.ts");
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_8__components_battle_results_results_component__ = __webpack_require__("../../../../../src/app/components/battle/results/results.component.ts");
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_9__components_rankings_rankings_component__ = __webpack_require__("../../../../../src/app/components/rankings/rankings.component.ts");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_10__components_rankings_list_list_component__ = __webpack_require__("../../../../../src/app/components/rankings/list/list.component.ts");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_11__services_player_service__ = __webpack_require__("../../../../../src/app/services/player.service.ts");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_10__services_player_service__ = __webpack_require__("../../../../../src/app/services/player.service.ts");
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
     else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
     return c > 3 && r && Object.defineProperty(target, key, r), r;
 };
-
 
 
 
@@ -161,7 +159,6 @@ var AppModule = (function () {
                 __WEBPACK_IMPORTED_MODULE_7__components_battle_player_player_component__["a" /* PlayerComponent */],
                 __WEBPACK_IMPORTED_MODULE_8__components_battle_results_results_component__["a" /* ResultsComponent */],
                 __WEBPACK_IMPORTED_MODULE_9__components_rankings_rankings_component__["a" /* RankingsComponent */],
-                __WEBPACK_IMPORTED_MODULE_10__components_rankings_list_list_component__["a" /* ListComponent */],
                 __WEBPACK_IMPORTED_MODULE_6__components_battle_battle_component__["a" /* BattleComponent */]
             ],
             imports: [
@@ -170,7 +167,7 @@ var AppModule = (function () {
                 __WEBPACK_IMPORTED_MODULE_3__angular_forms__["a" /* FormsModule */],
                 __WEBPACK_IMPORTED_MODULE_4__angular_common_http__["b" /* HttpClientModule */]
             ],
-            providers: [__WEBPACK_IMPORTED_MODULE_11__services_player_service__["a" /* PlayerService */]],
+            providers: [__WEBPACK_IMPORTED_MODULE_10__services_player_service__["a" /* PlayerService */]],
             bootstrap: [__WEBPACK_IMPORTED_MODULE_5__app_component__["a" /* AppComponent */]]
         })
     ], AppModule);
@@ -311,7 +308,7 @@ exports = module.exports = __webpack_require__("../../../../css-loader/lib/css-b
 
 
 // module
-exports.push([module.i, "img{\n    margin-top: 10px;\n    max-width:75%;\n    max-height:75%;\n}\n\n.profile{\n    height: 275px;\n    padding-top: 100px;\n}", ""]);
+exports.push([module.i, "img{\n    margin-top: 10px;\n    max-height:300px;\n}\n\n.profile{\n    height: 275px;\n    padding-top: 100px;\n}", ""]);
 
 // exports
 
@@ -354,6 +351,10 @@ var PlayerComponent = (function () {
     };
     PlayerComponent.prototype.update = function (username, label) {
         var _this = this;
+        if (username === '') {
+            this._bc.updateStatus(label, 'waiting');
+            return;
+        }
         var checkUser = function () {
             if (_this.player.login === '') {
                 _this._bc.updateStatus(label, 'none');
@@ -362,10 +363,6 @@ var PlayerComponent = (function () {
                 _this._bc.updateStatus(label, 'found');
             }
         };
-        if (username === '') {
-            this._bc.updateStatus(label, 'waiting');
-            return;
-        }
         this._bc.updateStatus(label, 'searching');
         this.search.next(username);
         setTimeout(checkUser, 3000);
@@ -430,7 +427,7 @@ module.exports = module.exports.toString();
 /***/ "../../../../../src/app/components/battle/results/results.component.html":
 /***/ (function(module, exports) {
 
-module.exports = "\n<div class=col-sm-6>\n  <div class=\"well text-center\">\n    <h2 *ngIf=\"player1.score > player2.score\" class=winner>1st Place</h2>\n    <h2 *ngIf=\"player2.score > player1.score\" class=loser>2nd Place</h2>\n    <img src=\"{{player1.avatar_url}}\" alt=\"{{player1.login}}\">\n    <h3><a href={{player1.html_url}}>{{player1.login}}</a></h3>\n    <h4 *ngIf=\"player1.score > player2.score\" [ngClass]=\"{winner: player1.score > player2.score}\">({{player1.score}} points)</h4>\n    <h4 *ngIf=\"player2.score > player1.score\" [ngClass]=\"{loser: player2.score > player1.score}\">({{player1.score}} points)</h4>\n    <h4>({{player1.public_repos}} repos + {{player1.followers}} followers) * 12</h4>\n  </div>\n</div>\n\n<div class=col-sm-6>\n  <div class=\"well text-center\">\n    <h2 *ngIf=\"player1.score > player2.score\" class=loser>2nd Place</h2>\n    <h2 *ngIf=\"player2.score > player1.score\" class=winner>1st Place</h2>\n    <img src=\"{{player2.avatar_url}}\" alt=\"{{player2.login}}\">\n    <h3><a href={{player2.html_url}}>{{player2.login}}</a></h3>\n    <h4 *ngIf=\"player2.score > player1.score\" [ngClass]=\"{winner: player2.score > player1.score}\">({{player2.score}} points)</h4>\n    <h4 *ngIf=\"player1.score > player2.score\" [ngClass]=\"{loser: player1.score > player2.score}\">({{player2.score}} points)</h4>\n    <h4>({{player2.public_repos}} repos + {{player2.followers}} followers) * 12</h4>\n  </div>\n</div>"
+module.exports = "\n<div class=col-sm-6>\n  <div class=\"well text-center\">\n    <h2 *ngIf=\"player1.score > player2.score\" class=winner>1st Place</h2>\n    <h2 *ngIf=\"player2.score > player1.score\" class=loser>2nd Place</h2>\n    <img src=\"{{player1.avatar_url}}\" alt=\"{{player1.login}}\">\n    <h3><a href={{player1.html_url}}>{{player1.login}}</a></h3>\n    <h4 *ngIf=\"player1.score > player2.score\" [ngClass]=\"{winner: player1.score > player2.score}\">({{player1.score}} points)</h4>\n    <h4 *ngIf=\"player2.score > player1.score\" [ngClass]=\"{loser: player2.score > player1.score}\">({{player1.score}} points)</h4>\n    <h4>({{player1.public_repos}} repos + {{player1.followers}} followers) * 12</h4>\n  </div>\n</div>\n\n<div class=col-sm-6>\n  <div class=\"well text-center\">\n    <h2 *ngIf=\"player1.score > player2.score\" class=loser>2nd Place</h2>\n    <h2 *ngIf=\"player2.score > player1.score\" class=winner>1st Place</h2>\n    <img src=\"{{player2.avatar_url}}\" alt=\"{{player2.login}}\">\n    <h3><a href={{player2.html_url}}>{{player2.login}}</a></h3>\n    <h4 *ngIf=\"player2.score > player1.score\" [ngClass]=\"{winner: player2.score > player1.score}\">({{player2.score}} points)</h4>\n    <h4 *ngIf=\"player1.score > player2.score\" [ngClass]=\"{loser: player1.score > player2.score}\">({{player2.score}} points)</h4>\n    <h4>({{player2.public_repos}} repos + {{player2.followers}} followers) * 12</h4>\n  </div>\n</div>\n\n<div class=row>\n  <div class=col-sm-2></div>\n  <div class=\"col-sm-8 text-center\">\n    <button class=\"btn btn-lg btn-block btn-default\" (click)=reset()>Reset</button>\n  </div>\n  <div class=col-sm-2></div>\n</div>"
 
 /***/ }),
 
@@ -467,6 +464,10 @@ var ResultsComponent = (function () {
         var players = this._ps.players.getValue();
         this.player1 = players[0], this.player2 = players[1];
     };
+    ResultsComponent.prototype.reset = function () {
+        this._ps.players.next([]);
+        this.router.navigate(['']);
+    };
     ResultsComponent = __decorate([
         Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["n" /* Component */])({
             selector: 'app-results',
@@ -482,67 +483,6 @@ var ResultsComponent = (function () {
 
 /***/ }),
 
-/***/ "../../../../../src/app/components/rankings/list/list.component.css":
-/***/ (function(module, exports, __webpack_require__) {
-
-exports = module.exports = __webpack_require__("../../../../css-loader/lib/css-base.js")(false);
-// imports
-
-
-// module
-exports.push([module.i, "", ""]);
-
-// exports
-
-
-/*** EXPORTS FROM exports-loader ***/
-module.exports = module.exports.toString();
-
-/***/ }),
-
-/***/ "../../../../../src/app/components/rankings/list/list.component.html":
-/***/ (function(module, exports) {
-
-module.exports = "<p>\n  list works!\n</p>\n"
-
-/***/ }),
-
-/***/ "../../../../../src/app/components/rankings/list/list.component.ts":
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return ListComponent; });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__("../../../core/esm5/core.js");
-var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
-    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
-    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
-    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
-    return c > 3 && r && Object.defineProperty(target, key, r), r;
-};
-var __metadata = (this && this.__metadata) || function (k, v) {
-    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
-};
-
-var ListComponent = (function () {
-    function ListComponent() {
-    }
-    ListComponent.prototype.ngOnInit = function () {
-    };
-    ListComponent = __decorate([
-        Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["n" /* Component */])({
-            selector: 'app-list',
-            template: __webpack_require__("../../../../../src/app/components/rankings/list/list.component.html"),
-            styles: [__webpack_require__("../../../../../src/app/components/rankings/list/list.component.css")]
-        }),
-        __metadata("design:paramtypes", [])
-    ], ListComponent);
-    return ListComponent;
-}());
-
-
-
-/***/ }),
-
 /***/ "../../../../../src/app/components/rankings/rankings.component.css":
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -551,7 +491,7 @@ exports = module.exports = __webpack_require__("../../../../css-loader/lib/css-b
 
 
 // module
-exports.push([module.i, "", ""]);
+exports.push([module.i, "img{\n    margin-top: 10px;\n    max-height: 250px;\n}", ""]);
 
 // exports
 
@@ -564,7 +504,7 @@ module.exports = module.exports.toString();
 /***/ "../../../../../src/app/components/rankings/rankings.component.html":
 /***/ (function(module, exports) {
 
-module.exports = "<p>\n  rankings works!\n</p>\n"
+module.exports = "\n<span *ngFor=\"let player of list; let i = index;\">\n\n  <div class=row>\n    <div class=col-sm-2></div>\n    <div class=col-sm-4>\n      <img src=\"{{player.avatar_url}}\" alt=\"{{player.login}}\">\n    </div>\n    <div class=col-sm-4>\n      <h1>{{i+1}}</h1>\n      <h2><a href={{player.html_url}}>{{player.login}}</a></h2>\n      <h3>Score: {{player.score}}</h3>\n      <h4>\n        {{player.public_repos}} repos<br>\n        {{player.followers}} followers\n      </h4>\n    </div>\n    <div class=col-sm-2></div>\n  </div>\n\n</span>"
 
 /***/ }),
 
@@ -574,6 +514,7 @@ module.exports = "<p>\n  rankings works!\n</p>\n"
 "use strict";
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return RankingsComponent; });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__("../../../core/esm5/core.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__services_player_service__ = __webpack_require__("../../../../../src/app/services/player.service.ts");
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -584,10 +525,17 @@ var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 
+
 var RankingsComponent = (function () {
-    function RankingsComponent() {
+    function RankingsComponent(_ps) {
+        this._ps = _ps;
     }
     RankingsComponent.prototype.ngOnInit = function () {
+        this.getRankings();
+    };
+    RankingsComponent.prototype.getRankings = function () {
+        var _this = this;
+        this._ps.list().subscribe(function (res) { return _this.list = res; }, function (err) { return console.log(err); });
     };
     RankingsComponent = __decorate([
         Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["n" /* Component */])({
@@ -595,7 +543,7 @@ var RankingsComponent = (function () {
             template: __webpack_require__("../../../../../src/app/components/rankings/rankings.component.html"),
             styles: [__webpack_require__("../../../../../src/app/components/rankings/rankings.component.css")]
         }),
-        __metadata("design:paramtypes", [])
+        __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_1__services_player_service__["a" /* PlayerService */]])
     ], RankingsComponent);
     return RankingsComponent;
 }());
@@ -669,7 +617,8 @@ var PlayerService = (function () {
             .switchMap(function (username) { return _this.search(username); });
     };
     PlayerService.prototype.search = function (username) {
-        return this._http.get("https://api.github.com/users/" + username, { headers: { "Authorization": "token 8a42946ac5e4e5dd4da27e7fdafb189392199b8d" } });
+        return this._http.get("https://api.github.com/users/" + username);
+        // GitHub API token removed
     };
     PlayerService.prototype.list = function () {
         return this._http.get('/api/list');

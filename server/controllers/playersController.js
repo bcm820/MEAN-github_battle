@@ -6,7 +6,7 @@ module.exports = {
     list(req, res){
         Player.find({}).sort({score:-1})
         .then(result => res.json(result))
-        .catch(err => res.send(404).json(err));
+        .catch(err => res.sendStatus(404).json(err));
     },
     
     add(req, res){
@@ -16,12 +16,11 @@ module.exports = {
             if(count === 0){
                 const player = new Player(req.body);
                 player.save()
-                .then(result => res.send(200).json(result))
-            } else {
-                res.send(200);
+                .then(result => res.sendStatus(200).json(result))
+                .catch(err => res.sendStatus(500).json(err));
             }
         })
-        .catch(err => res.send(500).json(err))
+        .catch(err => res.sendStatus(500).json(err))
     }
 
 }

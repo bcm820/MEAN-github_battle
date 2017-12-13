@@ -21,6 +21,11 @@ export class PlayerComponent implements OnInit {
 
   update(username, label){
 
+    if(username === ''){
+      this._bc.updateStatus(label, 'waiting');
+      return;
+    }
+    
     let checkUser = () => {
       if(this.player.login === ''){
         this._bc.updateStatus(label, 'none');
@@ -28,11 +33,6 @@ export class PlayerComponent implements OnInit {
       else {
         this._bc.updateStatus(label, 'found');
       }
-    }
-    
-    if(username === ''){
-      this._bc.updateStatus(label, 'waiting');
-      return;
     }
 
     this._bc.updateStatus(label, 'searching');

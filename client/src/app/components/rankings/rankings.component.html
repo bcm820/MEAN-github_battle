@@ -1,3 +1,21 @@
-<p>
-  rankings works!
-</p>
+
+<span *ngFor="let player of list; let i = index;">
+
+  <div class=row>
+    <div class=col-sm-2></div>
+    <div class=col-sm-4>
+      <img src="{{player.avatar_url}}" alt="{{player.login}}">
+    </div>
+    <div class=col-sm-4>
+      <h1>{{i+1}}</h1>
+      <h2><a href={{player.html_url}}>{{player.login}}</a></h2>
+      <h3>Score: {{player.score}}</h3>
+      <h4>
+        {{player.public_repos}} repos<br>
+        {{player.followers}} followers
+      </h4>
+    </div>
+    <div class=col-sm-2></div>
+  </div>
+
+</span>
