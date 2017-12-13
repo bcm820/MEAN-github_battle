@@ -4,29 +4,24 @@ const Player = require('mongoose').model('Player');
 module.exports = {
 
     list(req, res){
-        Player.find({})
+        Player.find({}).sort({score:-1})
         .then(result => res.json(result))
-        .catch(err => console.log(err));
+        .catch(err => res.send(404).json(err));
     },
     
-    create(req, res){
-        const player = new Player(req.body);
-        player.save()
-        .then(result => res.json(result))
-        .catch(err => res.json(err));
-    },
-
-    update(req, res){
-        Player.findByIdAndUpdate(req.id, req.body,
-        {runValidators:true, context: 'query'})
-        .then(result => res.json(result))
-        .catch(err => res.json(err));
-    },
-
-    delete(req, res){
-        Player.findByIdAndRemove(req.id)
-        .then(result => res.json(result))
-        .catch(err => res.json(err));
+    add(req, res){
+        Player.count({id:req.body.id})
+        .then(count => {
+            console.log('count:', count)
+            if(count === 0){
+                const player = new Player(req.body);
+                player.save()
+                .then(result => res.send(200).json(result))
+            } else {
+                res.send(200);
+            }
+        })
+        .catch(err => res.send(500).json(err))
     }
 
 }

@@ -1,0 +1,22 @@
+
+<div *ngIf="status === 'waiting'" class="well text-center profile">
+  <h2>{{label}}</h2>
+</div>
+
+<div *ngIf="status === 'searching'" class="well text-center profile">
+  <h2>Searching GitHub...</h2>
+</div>
+
+<div *ngIf="status === 'none'" class="well text-center profile">
+  <h2>None found!</h2>
+</div>
+
+<div *ngIf="status === 'found'" class="well text-center">
+  <img src="{{player.avatar_url}}" alt="{{player.login}}">
+  <h3><a href={{player.html_url}}>{{player.login}}</a></h3>
+  <button class="btn btn-sm btn-warning" (click)="reset(label)">Reset</button>
+</div>
+
+<div *ngIf="status !== 'found'">
+  <input class="form-control input-lg text-center" (keyup)="update($event.target.value, label)" placeholder="Enter a GitHub username"><br>
+</div>

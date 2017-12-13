@@ -8,15 +8,8 @@ module.exports = (router) => {
         next();
     });
 
-    router.param('id', (req, res, next, id) => {
-       req.id = id;
-       next();
-    });
-
     // /api
     router.get('/list', players.list);
-    router.post('/create', players.create);
-    router.post('/update/:id', players.update);
-    router.post('/delete/:id', players.delete);
+    router.post('/add', players.add);
 
 };

@@ -1,25 +1,20 @@
 
 const mongoose = require('mongoose');
+const uniqueCheck = require('mongoose-unique-validator');
 
 const PlayerSchema = new mongoose.Schema({
 
-    name: {
-        type: String,
-        required: [true],
-        minlength: [2]
-    },
+    id: {type: String, unique: [true], uniqueCaseInsensitive: true},
+    login: {type: String},
+    name: {type: String},
+    avatar_url: {type: String},
+    html_url: {type: String},
+    public_repos: {type: Number},
+    followers: {type: Number},
+    score: {type: Number}
 
-    position: {
-        type: String,
-        required: [false]
-    },
-
-    game1: { type: String },
-    game2: { type: String },
-    game3: { type: String },
-    status: { type: String }
-
-},
-{ timestamps: true });
+});
 
 mongoose.model('Player', PlayerSchema);
+
+PlayerSchema.plugin(uniqueCheck, {message: 'Duplicate found!' });

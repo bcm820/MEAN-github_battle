@@ -1,0 +1,24 @@
+
+<div class=col-sm-6>
+  <div class="well text-center">
+    <h2 *ngIf="player1.score > player2.score" class=winner>1st Place</h2>
+    <h2 *ngIf="player2.score > player1.score" class=loser>2nd Place</h2>
+    <img src="{{player1.avatar_url}}" alt="{{player1.login}}">
+    <h3><a href={{player1.html_url}}>{{player1.login}}</a></h3>
+    <h4 *ngIf="player1.score > player2.score" [ngClass]="{winner: player1.score > player2.score}">({{player1.score}} points)</h4>
+    <h4 *ngIf="player2.score > player1.score" [ngClass]="{loser: player2.score > player1.score}">({{player1.score}} points)</h4>
+    <h4>({{player1.public_repos}} repos + {{player1.followers}} followers) * 12</h4>
+  </div>
+</div>
+
+<div class=col-sm-6>
+  <div class="well text-center">
+    <h2 *ngIf="player1.score > player2.score" class=loser>2nd Place</h2>
+    <h2 *ngIf="player2.score > player1.score" class=winner>1st Place</h2>
+    <img src="{{player2.avatar_url}}" alt="{{player2.login}}">
+    <h3><a href={{player2.html_url}}>{{player2.login}}</a></h3>
+    <h4 *ngIf="player2.score > player1.score" [ngClass]="{winner: player2.score > player1.score}">({{player2.score}} points)</h4>
+    <h4 *ngIf="player1.score > player2.score" [ngClass]="{loser: player1.score > player2.score}">({{player2.score}} points)</h4>
+    <h4>({{player2.public_repos}} repos + {{player2.followers}} followers) * 12</h4>
+  </div>
+</div>
